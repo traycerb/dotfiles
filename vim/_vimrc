@@ -1,0 +1,1509 @@
+" → Vimrc file. v2.0 2014-05-22
+" Big ASCII text headings created by FIGlet (Fonts: Ivrit and Small)
+" (http://patorjk.com/software/taag)
+ 
+"Set encoding of buffer to Unicode
+set encoding=utf-8
+
+"set encoding of this _vimrc file to utf-8.  Must come after earlier
+"'encoding' line
+scriptencoding utf-8
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+"  _____         _           
+" |_   _|__   __| | ___    _ 
+"   | |/ _ \ / _` |/ _ \  (_)
+"   | | (_) | (_| | (_) |  _ 
+"   |_|\___/ \__,_|\___/  (_)
+"                            
+"Todo
+"-something interfering with reverse search (N)
+"-surround.vim doesn't work with vim-repeat as it shoudl
+
+"  ____       _                 
+" |  _ \  ___| |__  _   _  __ _ 
+" | | | |/ _ \ '_ \| | | |/ _` |
+" | |_| |  __/ |_) | |_| | (_| |
+" |____/ \___|_.__/ \__,_|\__, |
+"                         |___/ 
+"Debug
+
+"Verbose messages.  Should usually be 0 if not having problems
+"set verbose=0
+
+"  _   _                __     __         _       _     _           
+" | | | |___  ___ _ __  \ \   / /_ _ _ __(_) __ _| |__ | | ___  ___ 
+" | | | / __|/ _ \ '__|  \ \ / / _` | '__| |/ _` | '_ \| |/ _ \/ __|
+" | |_| \__ \  __/ |      \ V / (_| | |  | | (_| | |_) | |  __/\__ \
+"  \___/|___/\___|_|       \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
+"                                                                   
+
+"Variables to define paths not in usual Vim locations
+"e.g XXXX = Backup, Undo, Session, Swap
+"<---------------->	UserXXXXPath
+"<--------->		UserVimPath
+"<----->		UserPrecedingPath
+"c:\Temp\Vim\XXXX
+"+  +    +   +
+"|  |    |   UserXXXXDirectoryName 
+"|  |    UserVimDirectoryName
+"|  UserPrecedingDirectoryName
+"UserDrive
+let s:UserDrive = "d:"
+let s:UserPrecedingDirectoryName = "\\Temp"
+let s:UserVimDirectoryName = "\\Vim"
+let s:UserBackupDirectoryName = "\\Backup"
+let s:UserSessionDirectoryName = "\\Sessions"
+let s:UserSwapDirectoryName = "\\Swap"
+let s:UserUndoDirectoryName = "\\Undo"
+let s:UserPathDirectoryName = "\\Temp"
+let s:UserPrecedingPath = s:UserDrive . s:UserPrecedingDirectoryName
+let s:UserVimPath = s:UserPrecedingPath . s:UserVimDirectoryName
+let s:UserBackupPath = s:UserVimPath . s:UserBackupDirectoryName
+let s:UserSessionPath = s:UserVimPath . s:UserSessionDirectoryName
+let s:UserSwapPath = s:UserVimPath . s:UserSwapDirectoryName
+let s:UserUndoPath = s:UserVimPath . s:UserUndoDirectoryName
+let s:UserTempPath = s:UserVimPath . s:UserPathDirectoryName
+
+
+
+"  ____       _   _         
+" |  _ \ __ _| |_| |__  ___ 
+" | |_) / _` | __| '_ \/ __|
+" |  __/ (_| | |_| | | \__ \
+" |_|   \__,_|\__|_| |_|___/
+"                           
+
+"For the Win32 version (both console and GUI):
+"Vim uses standard Windows functions to obtain a temporary file name (for
+"filtering).  The first of these directories that exists and in which Vim can
+"create a file is used:
+"	$TMP
+"	$TEMP
+"	current directory
+
+"Temp Directory
+"set TE
+
+
+"  ____                               _   _____ _ _           
+" / ___|  ___  _   _ _ __ ___ ___  __| | |  ___(_) | ___  ___ 
+" \___ \ / _ \| | | | '__/ __/ _ \/ _` | | |_  | | |/ _ \/ __|
+"  ___) | (_) | |_| | | | (_|  __/ (_| | |  _| | | |  __/\__ \
+" |____/ \___/ \__,_|_|  \___\___|\__,_| |_|   |_|_|\___||___/
+" 
+" vimrc_example.vim and mswin.vim incorporated into current _vimrc
+"source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
+
+
+"   ____      _                   _______ _                              
+"  / ___|___ | | ___  _ __ ___   / /_   _| |__   ___ _ __ ___   ___  ___ 
+" | |   / _ \| |/ _ \| '__/ __| / /  | | | '_ \ / _ \ '_ ` _ \ / _ \/ __|
+" | |__| (_) | | (_) | |  \__ \/ /   | | | | | |  __/ | | | | |  __/\__ \
+"  \____\___/|_|\___/|_|  |___/_/    |_| |_| |_|\___|_| |_| |_|\___||___/
+"                                                                        
+"
+" Colors/Themes
+
+" Set colorscheme (color file must be in $VIMRUNTIME/colors)
+colorscheme zenburn
+
+" Zenburn colorscheme CONFIGURABLE PARAMETERS:
+" Darker background for bright environments.
+let g:zenburn_high_Contrast = 0
+
+" CursorColumn has same color as CursorLine
+let g:zenburn_unified_CursorColumn = 1
+
+" * New (dark) Visual coloring has been introduced.
+"   The dark Visual is more aligned with the rest of the colour scheme,
+"   especially if you use line numbers. If you wish to use the 
+"   old Visual coloring, use
+"
+let g:zenburn_old_Visual = 1
+
+" For more contrast to the Visual selection (must have g:zenburn_old_Visual
+" on)
+let g:zenburn_alternate_Visual = 0
+
+"Further colorscheme modifications in $VIMRUNTIME/vimfiles/after/colors/*.vim,
+" used in conjunction with AfterColors.vim plugin
+
+"Change cursorline color when in insert mode
+:au InsertEnter * hi CursorLine guibg=#b44230 gui=bold
+:au InsertLeave * hi CursorLine guibg=#434343 gui=bold
+"#CC2900
+"#e07e66
+"#e9e9e9
+"#e9e9e9
+"#5b2010
+"#ca4a36
+
+"  _____           _       
+" |  ___|__  _ __ | |_ ___ 
+" | |_ / _ \| '_ \| __/ __|
+" |  _| (_) | | | | |_\__ \
+" |_|  \___/|_| |_|\__|___/
+"                          
+" Fonts
+:set guifont=DejaVu_Sans_Mono:h11:cANSI
+
+"  _____         _   
+" |_   _|____  _| |_ 
+"   | |/ _ \ \/ / __|
+"   | |  __/>  <| |_ 
+"   |_|\___/_/\_\\__|
+" Text
+
+"Text will be wrapped visually instead of changed in buffer
+set wrap
+
+"Wrap text at boundary characters defined by 'breakat' option.
+"breakat usually includes " ^I!@*-+;:,./?" (note " " and ^I is Tab)
+set linebreak
+
+" list (showing hidden chars, e.g. tab, newline...) disables linebreak option above
+set nolist
+
+"Disable textwidth, so no limit to line length (best used with 'wrap')
+set textwidth=0
+
+"wrapmargin is offset from textwidth where vim would terminate line.  Not
+"needed since wrap is on.
+set wrapmargin=0
+
+"Set of characters to be shown when special characters are viewed (e.g space, EOL, tabs)
+"End of line: ¶ (pilcrow symbol, Unicode codepoint U+00B6
+"Tab: |- Shows indentation guides (lines showing indent level)  (must escape backslash the pipe|)
+"Trailing whitespace: • (Unicode bullet, Unicode codepoint U+2022)
+"
+"As of vim 7.4, spaces cannot be shown as separate characters (unincorporated patch does exist however)
+"Enter Unicode symbols (in INSERT mode) with Ctrl-Q, u, XXXX
+set listchars=eol:¶,tab:\|\ ,trail:•,extends:»,precedes:«,nbsp:×
+"let &listchars="eol:\u00b6,tab:\|\ ,trail:\u2022,extends:\u00bb,precedes:\u00ab,nbsp:\u00d7" 
+
+" Reappropirate Ex mode key 'Q' for formatting
+" (Ex mode is like typing ":" commands one after another, except
+" you don't have to keep pressing ":")
+map Q gq
+
+" Allow underline, strikethrough, etc using Unicode (not all fonts will work).
+" To use:  visually select ('v') desired text, then type ': Underline' or 
+" any remapped shortcuts.
+"To delete a combining character, first use :set delcombine, then type 'x' to delete
+" one at a time (inconvenient)
+"To change how many simultaneous types can be added (e.g. Underline and Strikethrough), 
+" change maxcombine setting (default is set to 2)
+" Todo: modify command to toggle state if already set (e.g. redoing Underline removes it)
+" modify selected text using combining diacritics
+command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')
+command! -range -nargs=0 Underline       call s:CombineSelection(<line1>, <line2>, '0332')
+command! -range -nargs=0 DoubleUnderline call s:CombineSelection(<line1>, <line2>, '0333')
+command! -range -nargs=0 Strikethrough   call s:CombineSelection(<line1>, <line2>, '0336')
+
+" Substitute function for underline, strikethrough, (double)overline
+" s/\%V[^[:cntrl:]]/&'.char.'/ge'
+" |  |       |      |   |     |
+" |  |       |      |   |     + substitute flags: 
+" |  |       |      |   |         g replace all matches in line (remove if gdefault on)
+" |  |       |      |   |         e suppress error messages
+" |  |       |      |   + the unicode char for underline, etc
+" |  |       |      +Backreference to whole matched pattern (&)
+" |  |       +Match any character except (^) a control character ([:cntrl:])
+" |  | 
+" |  +Perform substitution on the range of everything in the visual selection
+" +Substitute command
+function! s:CombineSelection(line1, line2, cp)
+  execute 'let char = "\u'.a:cp.'"'
+  execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/e'
+endfunction
+
+"Remap keys to allow quick access to underline function, etc when in Visual Mode
+vnoremap OO :Overline<CR>
+vnoremap UU :Underline<CR>
+vnoremap SS :Strikethrough<CR>
+vnoremap DD :DoubleUnderline<CR>
+
+
+
+"  _____     _              __  ___           _            _   
+" |_   _|_ _| |__  ___     / / |_ _|_ __   __| | ___ _ __ | |_ 
+"   | |/ _` | '_ \/ __|   / /   | || '_ \ / _` |/ _ \ '_ \| __|
+"   | | (_| | |_) \__ \  / /    | || | | | (_| |  __/ | | | |_ 
+"   |_|\__,_|_.__/|___/ /_/    |___|_| |_|\__,_|\___|_| |_|\__|
+"                                                              
+"Tabs / Indent
+
+"Copy indent from current line when starting a new line 
+set autoindent
+
+"Tabs replaced with spaces
+set expandtab
+
+"SmartTab: When on, a <Tab> in front of a line inserts blanks according to  'shiftwidth'.
+"'tabstop' or 'softtabstop' is used in other places.  A  <BS> will delete a
+"'shiftwidth' worth of space at the start of the  line.  When off, a <Tab>
+"always inserts blanks according to 'tabstop' or  'softtabstop'.  'shiftwidth'
+"is only used for shifting text left or  right |shift-left-right|. 
+set smarttab 
+
+"Set softtabstop to control how many columns vim uses when you hit Tab in insert
+"mode. If softtabstop is less than tabstop and expandtab is not set, vim will
+"use a combination of tabs and spaces to make up the desired spacing. If
+"softtabstop equals tabstop and expandtab is not set, vim will always use tabs.
+"When expandtab is set, vim will always use the appropriate number of spaces. 
+"If set to -1 makes 'softtabstop' follow 'shiftwidth'
+set softtabstop=-1
+
+"Set tabstop to tell vim how many columns a tab counts for.  
+"This is the only command here that will affect how existing
+"text displays. 
+set tabstop=4
+
+"Number of spaces to use for each step of (auto)indent
+"If set to 0, makes 'shiftwidth' follow 'tabstop'
+set shiftwidth=0
+
+"Round indent to multiple of 'shiftwidth'.
+set shiftround
+
+
+
+"  __  __       _   _             
+" |  \/  | ___ | |_(_) ___  _ __  
+" | |\/| |/ _ \| __| |/ _ \| '_ \ 
+" | |  | | (_) | |_| | (_) | | | |
+" |_|  |_|\___/ \__|_|\___/|_| |_|
+" Motion
+
+" By default, when pressing left/right cursor keys, Vim will not move to the
+" previous/next line after reaching first/last character in the line.  Setting
+" whichwrap adds the following keys to the ones which will wrap when moving.
+" b    <BS>	 Normal and Visual
+" s    <Space>	 Normal and Visual
+" h    "h"	 Normal and Visual
+" l    "l"	 Normal and Visual
+" <    <Left>	 Normal and Visual
+" >    <Right>	 Normal and Visual
+" [    <Left>	 Insert and Replace
+" ]    <Right>	 Insert and Replace
+" 
+set whichwrap+=<,>,h,l,[,],b,s
+
+" mapping to make up/down/beginning/end movements operate on one displayed screen line 
+" in wrap mode instead of one carriage-returned line (which may span multiple displayed 
+" lines depending on line length and size of window
+function! ScreenMovement(movement)
+   if &wrap
+      return "g" . a:movement
+   else
+      return a:movement
+   endif
+endfunction
+onoremap <silent> <expr> j ScreenMovement("j")
+onoremap <silent> <expr> k ScreenMovement("k")
+onoremap <silent> <expr> 0 ScreenMovement("0")
+onoremap <silent> <expr> ^ ScreenMovement("^")
+onoremap <silent> <expr> $ ScreenMovement("$")
+nnoremap <silent> <expr> j ScreenMovement("j")
+nnoremap <silent> <expr> k ScreenMovement("k")
+nnoremap <silent> <expr> 0 ScreenMovement("0")
+nnoremap <silent> <expr> ^ ScreenMovement("^")
+nnoremap <silent> <expr> $ ScreenMovement("$")
+
+"TODO: need a way to have up and down arrows work on a display line basis in
+"insert mode
+onoremap <silent> <expr> <Down> ScreenMovement("j")
+onoremap <silent> <expr> <Up> ScreenMovement("k")
+nnoremap <silent> <expr> <Down> ScreenMovement("j")
+nnoremap <silent> <expr> <Up> ScreenMovement("k")
+
+"Line-wise movement during Visual and Select modes
+vnoremap <silent> <expr> j ScreenMovement("j")
+vnoremap <silent> <expr> k ScreenMovement("k")
+vnoremap <silent> <expr> <Down> ScreenMovement("j")
+vnoremap <silent> <expr> <Up> ScreenMovement("k")
+
+"spacebar=page down; shift+spacebar=page up
+nnoremap <Space> <C-d>zz
+nnoremap <S-Space> <C-u>zz
+
+"Center screen on page up and page down
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+
+" provide motion commands in Insert mode via the <Alt> modifier key
+inoremap <A-h> <C-o>h
+inoremap <A-j> <C-o>j
+inoremap <A-k> <C-o>k
+inoremap <A-l> <C-o>l
+"inoremap <A-b> <C-o>b
+"inoremap <A-w> <C-o>w
+
+" provide motion commands in Insert mode via the <Ctrl> modifier key
+inoremap <C-h> <C-o>b
+inoremap <C-l> <C-o>w
+inoremap <C-j> <C-o>j
+"TODO/FIXME: (ctrl-k) overrides digraph entry mapping (must remap to something else)
+inoremap <C-k> <C-o>k
+
+" provide hjkl movements in Command-line mode via the <Alt> modifier key
+cnoremap <A-h> <Left>
+cnoremap <A-j> <Down>
+cnoremap <A-k> <Up>
+cnoremap <A-l> <Right>
+  
+"TODO: consider remap to make 'H' and 'L' (caps) in Normal mode perofrm word
+"level motion, e.g 'w' and 'b'.  An analogy to ctrl-left to move word-wise
+
+
+"  ____                      _     
+" / ___|  ___  __ _ _ __ ___| |__  
+" \___ \ / _ \/ _` | '__/ __| '_ \ 
+"  ___) |  __/ (_| | | | (__| | | |
+" |____/ \___|\__,_|_|  \___|_| |_|
+"                                  
+" Search
+
+set incsearch		" do incremental searching
+
+"switch on highlighting the last used search pattern.
+set hlsearch
+
+"gdefault applies substitutions globally on lines, instead of only first occurrence
+"For example, instead of :%s/foo/bar/g you just type :%/foo/bar/
+set gdefault
+
+" This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+"Case insensitive searches (needed to be set for smartcase option to work)
+set ignorecase
+
+"Smart case-sensitivity during search.  If search has uppercase, perform case
+"sensitive search.  If all lowercase, case-INsensitive search. 
+"Use \c (ignore case) and \C (use case) to override, e.g. /Copyright\c 
+set smartcase
+
+"search will center on the line it's found in. 
+noremap N Nzz 
+noremap n nzz 
+
+"  ____              _                  __  _____                          _   _   _             
+" / ___| _   _ _ __ | |_ __ ___  __    / / |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _ 
+" \___ \| | | | '_ \| __/ _` \ \/ /   / /  | |_ / _ \| '__| '_ ` _ \ / _` | __| __| | '_ \ / _` |
+"  ___) | |_| | | | | || (_| |>  <   / /   |  _| (_) | |  | | | | | | (_| | |_| |_| | | | | (_| |
+" |____/ \__, |_| |_|\__\__,_/_/\_\ /_/    |_|  \___/|_|  |_| |_| |_|\__,_|\__|\__|_|_| |_|\__, |
+"        |___/                                                                             |___/ 
+"Syntax / Formatting
+
+"Switch syntax highlighting on (assumes the terminal has colors)
+syntax on
+
+"  _____     _     _ _             
+" |  ___|__ | | __| (_)_ __   __ _ 
+" | |_ / _ \| |/ _` | | '_ \ / _` |
+" |  _| (_) | | (_| | | | | | (_| |
+" |_|  \___/|_|\__,_|_|_| |_|\__, |
+"                            |___/ 
+" Folding
+
+"Shift-Space will toggle folds! 
+"nnoremap <S-Space> za
+
+"enable folding a single line
+set foldminlines=0     
+
+"Folding with Regular Expressions (search for term first, then type \z)
+nnoremap \z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
+
+
+"  ____  _           _             
+" |  _ \(_)___ _ __ | | __ _ _   _ 
+" | | | | / __| '_ \| |/ _` | | | |
+" | |_| | \__ \ |_) | | (_| | |_| |
+" |____/|_|___/ .__/|_|\__,_|\__, |
+"             |_|            |___/ 
+" Display
+
+set number 			"Show line numbers
+
+set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+
+
+"changes Vim’s line number column to display how far away each line is from the current one, instead of showing the absolute line number.
+set relativenumber
+
+set scrolloff=5 		"Minimum cursor distance from edge of screen
+set scrolljump=10 		"Number of lines to scroll down when reaching
+				"bottom of screen
+
+" highlight the current line 
+set cursorline
+
+"display the cursorline only in the active window.
+augroup CursorLineOnlyInActiveWindow
+        autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+augroup END
+
+"show colorcolumn only in insert mode
+"augroup ColorcolumnOnlyInInsertMode
+"    autocmd!
+"    autocmd InsertEnter * setlocal colorcolumn=80
+"    autocmd InsertLeave * setlocal colorcolumn=0
+"augroup END
+
+
+" Highlight the current column
+set cursorcolumn
+
+"show 80 column boundary
+"set colorcolumn=78
+
+"prevent vim from showing an at symbol (@) when a line doesn't fit on screen
+set display+=lastline
+
+"always show the statusline
+set laststatus=2
+
+set ch=2		" Make command line two lines high
+
+"  _____ _ _      
+" |  ___(_) | ___ 
+" | |_  | | |/ _ \
+" |  _| | | |  __/
+" |_|   |_|_|\___|
+"
+"File
+" 
+"When a file has been detected to have been changed outside of Vim and  it has
+"not been changed inside of Vim, automatically read it again.  When the file has
+"been deleted this is not done.
+set autoread
+
+"  ____             _                     __  ____                          __  _   _           _       
+" | __ )  __ _  ___| | ___   _ _ __      / / / ___|_      ____ _ _ __      / / | | | |_ __   __| | ___  
+" |  _ \ / _` |/ __| |/ / | | | '_ \    / /  \___ \ \ /\ / / _` | '_ \    / /  | | | | '_ \ / _` |/ _ \ 
+" | |_) | (_| | (__|   <| |_| | |_) |  / /    ___) \ V  V / (_| | |_) |  / /   | |_| | | | | (_| | (_) |
+" |____/ \__,_|\___|_|\_\\__,_| .__/  /_/    |____/ \_/\_/ \__,_| .__/  /_/     \___/|_| |_|\__,_|\___/ 
+"                             |_|                               |_|                                     
+"Backup / Swap / Undo
+
+" SWITCH ON BACKUP (~ files) OF FILES
+set backup
+
+" SET PATCHMODE
+" Keeps oldest version of file. Name of the copy is the
+" name of the original file with the string in the 'patchmode' option (.clean)
+" Required for savevers.vim script (versioning file saving)
+set patchmode=.clean
+
+" SET BACKUP DIRECTORIES.  
+" Vim will use the first one that's an actual directory
+" Currently set to to fixed location (d:\Temp\Vim\Backup), current directory, d:\tmp, or d:\temp
+" The '//' at end of directory path makes each file name unique (so files with same name in
+" different directories can be worked on
+"set backupdir=d:\\Temp\\Vim\\Backup//,.,d:\\Temp
+let &backupdir = s:UserBackupPath . '//,' . s:UserPrecedingPath . '//,.'
+
+" SET SWAP (.swp files) DIRECTORIES
+" Vim will use the first one that's an actual directory
+" Currently set to to fixed location (d:\Temp\Vim\Swap), current directory, d:\tmp, or d:\temp
+" The '//' at end of directory path makes each file name unique (so files with same name in
+" different directories can be worked on
+"set dir=d:\\Temp\\Vim\\Swap//,.,d:\\Temp
+let &dir = s:UserSwapPath . '//,' . s:UserPrecedingPath . '//,.'
+
+" SWICH ON PERSISTENT UNDO HISTORY FOR FILE
+set undofile
+
+" SET UNDO DIRECTORIES.  
+" Remember the undo history for file, doesn't work with file collisions
+" Vim will use the first one that's an actual directory
+" Currently set to to fixed location (d:\Temp\Vim\Undo), current directory, d:\tmp, or d:\temp
+" The '//' at end of directory path makes each file name unique (so files with same name in
+" different directories can be worked on
+"set undodir=d:\\Temp\\Vim\\Undo//,.,d:\\Temp
+let &undodir = s:UserUndoPath . '//,' . s:UserPrecedingPath . '//,.'
+
+"  ____  _             _          ______                  _ _      
+" |  _ \| |_   _  __ _(_)_ __    / / __ ) _   _ _ __   __| | | ___ 
+" | |_) | | | | |/ _` | | '_ \  / /|  _ \| | | | '_ \ / _` | |/ _ \
+" |  __/| | |_| | (_| | | | | |/ / | |_) | |_| | | | | (_| | |  __/
+" |_|   |_|\__,_|\__, |_|_| |_/_/  |____/ \__,_|_| |_|\__,_|_|\___|
+"                |___/                                            
+" Plugin/Bundle/Vundle
+
+" Filetype detection.
+" Whenever you start editing a file, Vim will try to figure out what kind of file this is.
+" Needs to be turned OFF for vundle loading.  Can be turned on afterwards
+filetype off
+
+"NeoBundle, Vim plugin/bundle package manager, replacement for Vundle
+"Bundle '907th/vim-auto-save'
+
+
+
+" Adding vundle path to runtime path
+set runtimepath+=$HOME/vimfiles/bundle/vundle/
+call vundle#rc()
+"
+" Required for vundle on Windows, so that path names where bundles are to be  installed are recognized. 
+" Has to do with single quotes (') vs double quotes (") around path names.
+set noshellslash
+"
+" let Vundle manage Vundle (required!)
+Bundle 'gmarik/vundle'
+
+" Your bundles go here:
+" Format for Bundle listings
+" ORIGINAL REPOS ON GITHUB: Bundle 'mivok/vimtodo' or to pass with path " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" VIM-SCRIPTS REPOS: Bundle 'L9'
+" NON-GITHUB REPOS: Bundle 'git://git.wincent.com/command-t.git'
+" GIT REPOS ON YOUR LOCAL MACHINE (I.E. WHEN WORKING ON YOUR OWN PLUGIN): Bundle 'file:///Users/gmarik/path/to/plugin'
+
+"Bundles to consider adding
+"space bar for autocompletion (conflicts w/ remapping of <space> for page dn/up)
+"Bundle 'vim-space'
+"
+"Distraction-free writing in Vim (fewer conflicts than LiteDFM or VimRoom)
+"TODO: find a way to add "flow mode" aka "hemingway mode" with no backspace or delete (:inoremap <BS> <Nop>))
+"Bundle 'junegunn/goyo.vim'  
+
+"Make 'verymagic' setting persistent, (requires additional CRDispatcher
+"plugin)
+"Bundle 'coot/EnchantedVim'
+"Bundle 'coot/CRDispatcher'
+
+"Perl style regular expression in Vim (works, but lose incsearch ability)
+"Bundle 'othree/eregex.vim'
+
+"Simplified clipboard functionality for Vim.
+"Bundle 'svermeulen/vim-easyclip'
+
+"Force character-/line-/block-wise paste, regardless of how it was yanked.
+Bundle 'vim-scripts/UnconditionalPaste'
+"
+"Not a bundle per se, but silent vimrun.exe prevents external shell windows from flashing if silent attribute set
+"leonid-shevtsov/vimrun-silent 
+"
+
+"completion function for Unicode glyphs
+"Bundle 'chrisbra/unicode.vim'
+
+"adds various text objects to give you more targets to operate on. 
+"Bundle 'wellle/targets.vim'
+
+"Takes the <number> out of <number>w or <number>f{char} by highlighting all possible choices and allowing you to press one key to jump directly to the target.
+"Bundle 'Lokaltog/vim-easymotion'
+
+"Auto-save
+Bundle '907th/vim-auto-save'
+
+"Tab for word completion
+Bundle 'ervandew/supertab'
+
+"Most recently used files
+Bundle 'yegappan/mru'
+
+"Automatically saves and compares multiple, sequentially numbered old revisions of files
+"Bundle 'vim-scripts/savevers.vim'
+
+"Automatically saves and compares multiple, sequentially numbered old revisions of files
+Bundle 'savevers.vim'
+
+"repeat motions (";" to go repeat motion fwd, "," go back)
+"TODO: PROBLEMS: interferes with backwards search ('?searchPattern') and remapping
+"of visual line motions
+"Bundle 'vim-scripts/repeat-motion'
+
+"vim-misc scripts needed for session.vim
+Bundle 'xolox/vim-misc'
+
+"Extended session management for Vim (improves upon Vim's built-in :mksession command)
+Bundle 'xolox/vim-session'
+
+"visually displaying indent levels in code
+Bundle 'nathanaelkane/vim-indent-guides'
+
+"status/tabline for vim 
+Bundle 'bling/vim-airline'
+
+"syntax highlighting for todo.txt
+Bundle 'freitass/todo.txt-vim'
+
+"Destroy all buffers that are not open in any tabs or windows. 
+Bundle 'artnez/vim-wipeout'
+
+"Allow modification of color schemes
+Bundle 'vim-scripts/AfterColors.vim'
+
+"show marks in signs column
+Bundle 'kshenoy/vim-signature'
+
+"Graphical undo tree
+Bundle 'sjl/gundo.vim'
+
+"Scratch buffer (never asked to save, open with :Scratch)
+Bundle 'vim-scripts/scratch.vim'
+
+"Syntax highlighting for asciidoc files
+Bundle 'dagwieers/asciidoc-vim'
+
+"Todo.txt scripts 
+Bundle 'mivok/vimtodo'
+
+"highlight Hex Colors
+Bundle 'vim-scripts/hexHighlight.vim'
+
+"highlight Hex Colors
+Bundle 'chrisbra/Colorizer'
+
+"Lines up text in table format
+Bundle 'godlygeek/tabular'
+
+"Easy Note taking in Vim
+Bundle 'xolox/vim-notes'
+
+"Vi org-mode clone (written in python)
+Bundle 'jceb/vim-orgmode'
+
+"Vim outliner
+Bundle 'vimoutliner/vimoutliner'
+
+"Vim org-mode clone (written in vimScript)
+" Bundle 'hsitz/VimOrganizer'
+
+"Allows testing of vim regular expressions
+Bundle 'Raimondi/VimRegEx.vim'
+
+"Delete, change and add in pairs parentheses, brackets, quotes, XML tags, and more.
+Bundle 'tpope/vim-surround'
+
+"remaps  .  in a way that plugins can tap into it.
+Bundle 'tpope/vim-repeat'
+
+"Show CSS colors in actual color (e.g. 'yellow', '#a8225f')
+"Bundle 'skammer/vim-css-color'
+
+
+"mpage.vba - span single file across multiple splits, syncing scrolling
+"installed via Vimball, path added manually.
+"TODO: BundleClean will remove this in its current location; move to diff loc.
+"to remove:
+"   :RmVimball mpage
+"to reinstall, open mpage.vba in a buffer, and type:
+"   :UseVimball <path to install>
+"  (path is usually $HOME/.vim/bundle/myPluginName
+set runtimepath+=$HOME/.vim/nonBundlePlugins/mpage
+
+" Turn back on filetyping after Vundle is done
+filetype plugin indent on
+
+"          ____  _             _          ___        _   _                 
+"    _    |  _ \| |_   _  __ _(_)_ __    / _ \ _ __ | |_(_) ___  _ __  ___ 
+"  _| |_  | |_) | | | | |/ _` | | '_ \  | | | | '_ \| __| |/ _ \| '_ \/ __|
+" |_   _| |  __/| | |_| | (_| | | | | | | |_| | |_) | |_| | (_) | | | \__ \
+"   |_|   |_|   |_|\__,_|\__, |_|_| |_|  \___/| .__/ \__|_|\___/|_| |_|___/
+"                        |___/                |_|                          
+" Plugin Options
+" Options which would be invalid if the plugin wasn't installed
+"    _       _       _       ___               
+"  _| |_    /_\ _  _| |_ ___/ __| __ ___ _____ 
+" |_   _|  / _ \ || |  _/ _ \__ \/ _` \ V / -_)
+"   |_|   /_/ \_\_,_|\__\___/___/\__,_|\_/\___|
+"
+" vim-auto-save plugin options
+" enable AutoSave (907th/vim-auto-save plugin) on Vim startup
+let g:auto_save = 1  
+
+"    _     ___             __   __          
+"  _| |_  / __| __ ___ ____\ \ / /__ _ _ ___
+" |_   _| \__ \/ _` \ V / -_) V / -_) '_(_-<
+"   |_|   |___/\__,_|\_/\___|\_/\___|_| /__/
+"                                           
+" savevers plugin options
+
+"Comma-separated list of filename patterns will have numbered versions.
+"Defaults to "*" (all files). 
+let savevers_types = "*"
+
+" Sets the maximum patchmode version.
+let savevers_max = 99
+
+" :Purge [-a] [-v] [N]
+" Removes all but the patchmode files numbered N and below.
+" [N] is optional, and defaults to 1.
+" [-a] operates on all patchmode files in the directory of the current file.
+" [-v] (verbose) filename of each deleted patchmode file is printed.
+" ":Purge 0" to delete all of the patchmode files for the current file.
+" Option below sets default value of [N] for the :Purge command Defaults to "1"
+let savevers_purge = 1     
+
+"Comma-separated list of directories files where version/patchmode files will be save. 
+"To set this to the same as 'backupdir', do :let savevers_dirs = &backupdir
+"Defaults to '.', which puts all patchmode files in the same directory as the original file.
+let savevers_dirs = &backupdir
+
+"Disables window resizing during ":VersDiff"
+" let versdiff_no_resize = 
+
+"Limits window resizing during ":VersDiff" 
+" let versdiff_max_cols  = 
+
+"    _     ___            _                    _       
+"  _| |_  / __| ___ _____(_)___ _ _       __ _(_)_ __  
+" |_   _| \__ \/ -_|_-<_-< / _ \ ' \   _  \ V / | '  \ 
+"   |_|   |___/\___/__/__/_\___/_||_| (_)  \_/|_|_|_|_|
+"                                                      
+"session.vim plugin options
+
+
+"Whether to auto-save session on exiting vim
+" Choices
+"'prompt' (default) Asks whether to save current session when you quit Vim
+"'yes' always automatically save open sessions when you quit Vim.
+"'no' To completely disable automatic saving 
+let g:session_autosave = 'yes'
+
+"Automatically save session periodically.  Zero disables
+let g:session_autosave_periodic = 1
+
+"autoload default session if opening vim without any files
+"choices: 'yes' 'no' 'prompt'
+let g:session_autoload = 'yes' 
+
+"If you set this to true (1), every Vim instance without an explicit 
+"session loaded will overwrite the default session (the last Vim instance wins).
+let g:session_default_overwrite = 1 
+
+"location of your session scripts. default value ~\vimfiles\sessions (on Windows). 
+"let g:session_directory = 'd:\\Temp\\Vim\\Sessions'
+let g:session_directory = s:UserSessionPath
+
+"name of the default session without directory or filename
+"extension (default is 'default')
+let g:session_default_name = 'VimSession-Default'
+
+"The filename extension of session scripts. should include the dot that 
+"separates the basename from the extension. Defaults to '.vim'.
+let g:session_extension = '.VimSession' 
+
+"Which session to open on start-up.
+"Options:
+"false (0) -(default) opens the default session instead of the most-recently-used one (if different) 
+"true (1) - the session plug-in will open your last used session instead of the default session. 
+let g:session_default_to_last = 1
+
+"session load/save prompts are quite verbose by default because they explain how
+"to disable the prompts. If you find the additional explanation distracting you
+"can lower the verbosity by setting this option to 0 (false)
+let g:session_verbose_messages = 0
+
+"    _     ___                   _____     _    
+"  _| |_  / __|_  _ _ __  ___ _ |_   _|_ _| |__ 
+" |_   _| \__ \ || | '_ \/ -_) '_|| |/ _` | '_ \
+"   |_|   |___/\_,_| .__/\___|_|  |_|\__,_|_.__/
+"                  |_|                          
+"Supertab plugin options
+
+"Default Completion Type
+"default value: "<c-p>"
+"let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+
+"    _      ___              _     
+"  _| |_   / __|_  _ _ _  __| |___ 
+" |_   _| | (_ | || | ' \/ _` / _ \
+"   |_|    \___|\_,_|_||_\__,_\___/
+"                                  
+"Gundo plugin options
+nnoremap <F5> :GundoToggle<CR>
+
+
+"    _      ___     _         _            
+"  _| |_   / __|___| |___ _ _(_)______ _ _ 
+" |_   _| | (__/ _ \ / _ \ '_| |_ / -_) '_|
+"   |_|    \___\___/_\___/_| |_/__\___|_|  
+"                                          
+"Colorizer plugin options
+"
+
+"Colorizer Debug
+let g:colorizer_debug=1
+
+"    _    __   ___          ___                    _   
+"  _| |_  \ \ / (_)_ __ ___| _ \___ _ __  ___ __ _| |_ 
+" |_   _|  \ V /| | '  \___|   / -_) '_ \/ -_) _` |  _|
+"   |_|     \_/ |_|_|_|_|  |_|_\___| .__/\___\__,_|\__|
+"                                  |_|                 
+" Vim-repeat plugin options
+
+"    _     _   _                     _ _ _   _               _ 
+"  _| |_  | | | |_ _  __ ___ _ _  __| (_) |_(_)___ _ _  __ _| |
+" |_   _| | |_| | ' \/ _/ _ \ ' \/ _` | |  _| / _ \ ' \/ _` | |
+"   |_|    \___/|_||_\__\___/_||_\__,_|_|\__|_\___/_||_\__,_|_|
+"         | _ \__ _ __| |_ ___                                 
+"         |  _/ _` (_-<  _/ -_)                                
+"         |_| \__,_/__/\__\___|                                
+"                                                                                           
+"UnconditionalPaste plugins options
+
+"Remap so unconditional paste behavior is default behavior (not option per se)
+"
+
+
+"     _    _     _                    _       _   _                 
+"    / \  | |__ | |__  _ __ _____   _(_) __ _| |_(_) ___  _ __  ___ 
+"   / _ \ | '_ \| '_ \| '__/ _ \ \ / / |/ _` | __| |/ _ \| '_ \/ __|
+"  / ___ \| |_) | |_) | | |  __/\ V /| | (_| | |_| | (_) | | | \__ \
+" /_/   \_\_.__/|_.__/|_|  \___| \_/ |_|\__,_|\__|_|\___/|_| |_|___/
+"                                                                   
+"  Abbreviations
+
+"  iab => abbreviation for insert mode only (so no completion during :ex mode
+"  commands, etc.)
+"  All abbreviations are triggered with whitespace or other characters.  To
+"  eliminate those characters, append Eatchar function as seen in examples
+"  below.
+"
+
+"Eatchar function to delete the space inserted after an abbreviation
+"replacement.
+function! Eatchar(pat)
+      let c = nr2char(getchar(0))
+      return (c =~ a:pat) ? '' : c
+endfunction
+
+" For ease of making quick dividers '>>>' => '==============='
+"iabbr <silent> >>> ====================<c-r>=Eatchar('\m\s\<bar>/')<cr>
+inoremap >>> ==========<c-r>=Eatchar('\m\s\<bar>/')<cr>
+inoremap <<< <<<<<<<<<<<<<<<<<<<<<c-r>=Eatchar('\m\s\<bar>/')<cr>
+
+"   ____                     ______           _       
+"  / ___|___  _ __  _   _   / /  _ \ __ _ ___| |_ ___ 
+" | |   / _ \| '_ \| | | | / /| |_) / _` / __| __/ _ \
+" | |__| (_) | |_) | |_| |/ / |  __/ (_| \__ \ ||  __/
+"  \____\___/| .__/ \__, /_/  |_|   \__,_|___/\__\___|
+"            |_|    |___/                             
+" Copy/Paste
+
+"   Register    Name                Function 
+"   *           System Clipboard    PRIMARY (X11)
+"   "           Unnamed Register    filled with text resulting from "d", "c", "s", "x", and "y"
+"                                   Default source of paste when no register specified 
+"   +           X11 CLIPBOARD       Same as System Clipboard on Windows
+
+"In Vim, the unnamed register is the " register, and the 
+"Windows Clipboard is the * register.
+"This means that if you yank something, you have to yank it to the * register
+"By setting 'clipboard' option to 'unnamed' you always yank to *.  So
+"pasting to windows apps doesn't require prefixing "* 
+"
+set clipboard=unnamed
+
+"Autocopy mouse selections for Xwindows and mswindows)
+noremap <LeftRelease> "*y<LeftRelease>
+
+
+
+"  _____    _ _ _   _                ____                                          _     
+" | ____|__| (_) |_(_)_ __   __ _   / ___|___  _ __ ___  _ __ ___   __ _ _ __   __| |___ 
+" |  _| / _` | | __| | '_ \ / _` | | |   / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
+" | |__| (_| | | |_| | | | | (_| | | |__| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
+" |_____\__,_|_|\__|_|_| |_|\__, |  \____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
+"                           |___/                                                        
+" Editing Commands
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+"Map Ctrl-Backspace to delete previous word (insert mode)
+inoremap <C-BS> <C-\><C-o>db
+
+"Map Ctrl-Backspace to delete previous word (normal mode)
+nnoremap <C-BS> db
+
+"Map Ctrl-Delete to delete following word
+inoremap <C-Del> <C-\><C-o>dw
+
+"Map Ctrl-Delete to delete following word (normal mode)
+nnoremap <C-Del> dw
+
+"Delete in insert mode
+inoremap <C-x> <Del>
+
+"Insert a single character in normal mode (replaces s)
+function! RepeatChar(char, count)
+  return repeat(a:char, a:count)
+endfunction
+nnoremap <silent> s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
+nnoremap <silent> S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+
+"Map <u> and <U> to change to lowercase and uppercase, respectively. (normal mode)
+nnoremap u gu
+nnoremap U gU
+
+"Replace normal mode insert line commands 'o' and 'O' ('open') 
+"to insert new line at current cursor location, instead of 
+"before line
+"Todo: make work with counts; at last char line add newline after
+nnoremap o i<CR>
+nnoremap O ki<CR>
+
+"In insert mode, pressing Ctrl-u deletes text you've typed in the current line,
+" and Ctrl-w deletes the word before the cursor. You can't undo these deletions.
+" The following remaps allow undo
+inoremap <c-u> <c-g>u<c-u> 
+inoremap <c-w> <c-g>u<c-w>
+
+"Move entire line up and down in Vim (mapped to alt-shift-up/down)
+function! s:swap_lines(n1, n2)
+    let line1 = getline(a:n1)
+    let line2 = getline(a:n2)
+    call setline(a:n1, line2)
+    call setline(a:n2, line1)
+endfunction
+"
+function! s:swap_up()
+    let n = line('.')
+    if n == 1
+        return
+    endif
+
+    call s:swap_lines(n, n - 1)
+    exec n - 1
+endfunction
+"
+function! s:swap_down()
+    let n = line('.')
+    if n == line('$')
+        return
+    endif
+
+    call s:swap_lines(n, n + 1)
+    exec n + 1
+endfunction
+"
+
+nnoremap <silent> <a-s-up> :call <SID>swap_up()<CR>
+nnoremap <silent> <a-s-down> :call <SID>swap_down()<CR>
+
+"Provides a 'dw', which joins lines when at end of line before proceeding to perform a 'dw'
+"TODO: Consider how to handle single letter words at end of line, which aren't
+"currently deleted (either way could be unexpected depending on context)
+function! DeleteWordAndJoinLine()
+
+    "getpos() with arg '.' (=cursor position) returns a List with four numbers: 
+    " [buffer number, line number, column number, offset if virtualedit on]
+    "First column is indexed starting at one
+    let currentCursorPos = getpos(".")
+    
+    "col() with arg "$" (=end of line) returns byte index of column at end of line plus one
+    "Subtract one to match with getpos() results, which works except for empty
+    "line where both results will be 1 before any subtraction.  On the empty line, vanilla dw 
+    "has the correct behavior (delete the empty line, no more), not this modified function, 
+    "so even though the logical test fails (due to the subtraction) despite the cursor 
+    "being at the end of the line, this is ok.
+    let indexLastCharacter = col("$") - 1
+   
+    if currentCursorPos[2] == indexLastCharacter
+        normal! Jdw
+    else
+        normal! dw
+    endif
+endfunction
+
+"In conjuction with DeleteWordAndJoinLine function, 
+"remaps dw behavior at end of line to first perform a line join before the dw
+"This remap is repeatable via '.' and requires repeat-vim plugin installed (the :call repeat#set... portion gives this functionality)
+"The dw remapping needs to be nmap (not nnoremap) so the redefined remap can be executed
+nnoremap <silent> <Plug>DeleteAndJoin :call DeleteWordAndJoinLine()<CR>:call repeat#set("\<Plug>DeleteAndJoin")<CR>
+nmap <silent> dw <Plug>DeleteAndJoin
+
+"  ____             _ _ _             
+" / ___| _ __   ___| | (_)_ __   __ _ 
+" \___ \| '_ \ / _ \ | | | '_ \ / _` |
+"  ___) | |_) |  __/ | | | | | | (_| |
+" |____/| .__/ \___|_|_|_|_| |_|\__, |
+"       |_|                     |___/ 
+" Spelling / Spell Check / Language
+
+map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+
+"  __  __                      
+" |  \/  | ___  _   _ ___  ___ 
+" | |\/| |/ _ \| | | / __|/ _ \
+" | |  | | (_) | |_| \__ \  __/
+" |_|  |_|\___/ \__,_|___/\___|
+"                              
+" Mouse
+
+"Enable mouse
+set mouse=a
+
+" set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
+" option	mswin		
+"'selectmode'	"mouse,key"
+"'mousemodel'	"popup"		
+"'keymodel'	"startsel,stopse"
+"'selection'	"exclusive"	
+behave mswin
+
+"Focus follows mouse. The window that the mouse pointer is on is automatically activated.
+"Can cause issues if using mouse to reach pull-down menus, as mouse will cross
+"over any horizontally-split window above and activate it, as the mouse travels to the
+"pull-down menu.  only way to avoid is to go around the windows
+set mousefocus
+
+set nomousehide 			"Don't hide mouse cursor while typing
+
+"  _____     _              __  ____         __  __                
+" |_   _|_ _| |__  ___     / / | __ ) _   _ / _|/ _| ___ _ __ ___  
+"   | |/ _` | '_ \/ __|   / /  |  _ \| | | | |_| |_ / _ \ '__/ __| 
+"   | | (_| | |_) \__ \  / /   | |_) | |_| |  _|  _|  __/ |  \__ \ 
+"   |_|\__,_|_.__/|___/ /_/    |____/ \__,_|_| |_|  \___|_|  |___/ 
+"     __ __        ___           _                                 
+"    / / \ \      / (_)_ __   __| | _____      _____               
+"   / /   \ \ /\ / /| | '_ \ / _` |/ _ \ \ /\ / / __|              
+"  / /     \ V  V / | | | | | (_| | (_) \ V  V /\__ \              
+" /_/       \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/ |___/              
+"                                                                  
+" Tabs / Buffers / Windows
+
+
+"Left and Right Arrow keys go to the previous or next tabs (in normal mode)
+nnoremap <silent> <Right> :tabnext<CR>
+nnoremap <silent> <Left> :tabprevious<CR>
+inoremap <silent> <Right> :tabnext<CR>
+inoremap <silent> <Left> :tabprevious<CR>
+
+
+"Ctrl-Left or Ctrl-Right to go to the previous or next tabs (in normal mode)
+"nnoremap <C-Left> :tabprevious<CR>
+"nnoremap <C-Right> :tabnext<CR> 
+"TAB navigation like firefox
+nnoremap <C-S-tab> :tabprevious<cr>
+nnoremap <C-tab> :tabnext<cr>
+inoremap <C-S-tab> <ESC>:tabprevious<cr>i
+inoremap <C-tab> <ESC>:tabnext<cr>i
+
+"Functions to Move Tab positions
+"http://stackoverflow.com/questions/2106138/rearrange-tabs-with-the-mouse-in-gvim
+function! TabLeft() 
+    let tab_number = tabpagenr() - 1 
+    if tab_number == 0 
+	execute "tabm" tabpagenr('$') - 1
+    else
+	execute "tabm" tab_number - 1 
+    endif
+endfunction
+"
+function! TabRight() 
+    let tab_number = tabpagenr() - 1 
+    let last_tab_number = tabpagenr('$') - 1 
+    if tab_number == last_tab_number 
+	execute "tabm" 0 
+    else 
+	execute "tabm" tab_number + 1 
+    endif 
+endfunction
+"
+"Remap Alt-Right/Left in normal mode to move tabs right/left respectively
+nnoremap <silent> <A-Left> :execute TabLeft()<CR>
+nnoremap <silent> <A-Right> :execute TabRight()<CR>
+
+
+"Always show tab bar
+set showtabline=2
+
+"Always open help files in a rightward vertical split 
+autocmd FileType help,* wincmd L
+
+
+
+
+"Open all files in their own new tab
+"Causes problems with help files (open in new tab and not at correct location)
+"if (&diff==0)
+"    :autocmd BufReadPost * tab ball
+"endif
+"This version attempts to avoid help topics opening in own tab, but still causes
+"probs w/ e:! (Reload current buffer)
+"au BufNewFile,BufRead * nested 
+"           \ if &buftype != "help" | 
+"           \ tab sball | 
+"       \ endif
+
+
+"New horizontal splits of window will open below current pane
+set splitbelow 
+
+"New vertical splits of window will open to right of current pane
+set splitright
+
+"quickly resize window heights in those with a horizontal split: 
+nnoremap _ <C-W>-
+nnoremap + <C-W>+
+
+"Resize window width in those with vertical split
+nnoremap - <C-W><
+nnoremap = <C-W>>
+
+"Remap making splits equal size
+nnoremap <A-=> <C-W>=
+
+"Remap reversing/switching splits positions
+nnoremap <A--> <C-W>r
+
+"hold down Ctrl and move between windows with the standard Vim movement keys
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
+
+"remap switching to MRU split window
+"TODO: this takes makes it impossible to enter any other window manipulation
+"commands, as they are all preceded by Ctrl-W (which is now appropriated
+"as a single command).  This shortcut may not be feasible in the long-term
+"if window manipulation coverage provided by current remaps is insufficient
+nnoremap <C-W> <C-W>w
+
+"Alt Up/Down to move between windows with a horizontal split
+"nnoremap <silent> <A-Up> :wincmd k<CR>
+"nnoremap <silent> <A-Down> :wincmd j<CR>
+
+
+
+"   ______     _____ __  __    __           _                  __  
+"  / ___\ \   / /_ _|  \/  |  / /__ ___   _(_)_ __ ___  _ __ __\ \ 
+" | |  _ \ \ / / | || |\/| | | |/ _` \ \ / / | '_ ` _ \| '__/ __| |
+" | |_| | \ V /  | || |  | | | | (_| |\ V /| | | | | | | | | (__| |
+"  \____|  \_/  |___|_|  |_| | |\__, | \_/ |_|_| |_| |_|_|  \___| |
+"                             \_\___/                          /_/ 
+"Gvim commands (could go in .gvimrc or _gvimrc )
+
+"Toolbar
+"if has("toolbar")
+"  an 1.10 ToolBar.Open			:browse confirm e<CR>
+"  an <silent> 1.20 ToolBar.Save		:if expand("%") == ""<Bar>browse confirm w<Bar>else<Bar>confirm w<Bar>endif<CR>
+"  an 1.30 ToolBar.SaveAll		:browse confirm wa<CR>
+"endif
+
+
+"  ____                _                 
+" / ___|  ___  ___ ___(_) ___  _ __  ___ 
+" \___ \ / _ \/ __/ __| |/ _ \| '_ \/ __|
+"  ___) |  __/\__ \__ \ | (_) | | | \__ \
+" |____/ \___||___/___/_|\___/|_| |_|___/
+"                                        
+"Sessions
+
+":mksession options (compatible with session.vim plugin)
+"buffers	hidden and unloaded buffers, not just those in windows
+"curdir		the current directory
+"folds		manually created folds, opened/closed folds and local
+"     		fold options
+"resize		size of the Vim window: 'lines' and 'columns'
+"tabpages	all tab pages; without this only the current tab page
+"     		is restored, so that you can make a session for each
+"     		tab page separately
+"winpos		position of the whole Vim window
+"winsize	window sizes
+set sessionoptions=buffers,curdir,folds,tabpages,resize,winpos,winsize
+
+" Viminfo file
+set viminfo=%,<50,'100,h,f1,n$HOME/_viminfo
+"           | |   |    | |  +path location and name of viminfo file
+"           | |   |    | +file marks 0-9,A-Z 1=stored
+"           | |   |    +disable 'hlsearch' loading viminfo
+"           | |   +files marks saved
+"           | +lines saved each register (< is newer name for \" after vi6.2)
+"           +save/restore buffer list
+
+"By omitting the / (search pattern history) and : (command line history)
+"subparts of viminfo, they will use the value of 'history' which is the default
+
+"Number of saved commands to restore on Vim Startup.  
+:set history=100
+
+"     
+" If [!] is given, then any information that is already set (registers, marks,
+" |v:oldfiles|, etc.) will be overwritten " 
+" stores string and number variables with all uppercase names to the viminfo file.
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+
+" When editing a file, always jump to the last known cursor position.
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+"  _______  __   ____                                          _     
+" | ____\ \/ /  / ___|___  _ __ ___  _ __ ___   __ _ _ __   __| |___ 
+" |  _|  \  /  | |   / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
+" | |___ /  \  | |__| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
+" |_____/_/\_\  \____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
+"                                                                    
+" Ex Commands
+"
+"Custom function to output :Ex output into a new tab
+"Example usage:
+":TabMessage highlight 
+function! TabMessage(cmd)
+  redir => message
+  silent execute a:cmd
+  redir END
+  tabnew
+  silent put=message
+  set nomodified
+endfunction
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
+
+
+" Swap default ':', '/' and '?' with cmdline-window equivalent.
+"nnoremap : q:i
+"xnoremap : q:i
+"nnoremap / q/i
+"xnoremap / q/i
+"nnoremap ? q?i
+"xnoremap ? q?i
+"nnoremap q: :
+"xnoremap q: :
+"nnoremap q/ /
+"xnoremap q/ /
+"nnoremap q? ?
+"xnoremap q? ?
+" Have <esc> leave cmdline-window
+autocmd CmdwinEnter * nnoremap <buffer> <esc> :q\|echo ""<cr>
+
+"  ____  _  __  __   ______                                     
+" |  _ \(_)/ _|/ _| / / ___|___  _ __ ___  _ __   __ _ _ __ ___ 
+" | | | | | |_| |_ / / |   / _ \| '_ ` _ \| '_ \ / _` | '__/ _ \
+" | |_| | |  _|  _/ /| |__| (_) | | | | | | |_) | (_| | | |  __/
+" |____/|_|_| |_|/_/  \____\___/|_| |_| |_| .__/ \__,_|_|  \___|
+"                                         |_|                   
+set diffexpr=MyDiff()
+function! MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ "\<cmd"
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . " > " . arg3 . eq
+endfunction
+
+
+"  _____                     _ _             
+" | ____|_ __   ___ ___   __| (_)_ __   __ _ 
+" |  _| | '_ \ / __/ _ \ / _` | | '_ \ / _` |
+" | |___| | | | (_| (_) | (_| | | | | | (_| |
+" |_____|_| |_|\___\___/ \__,_|_|_| |_|\__, |
+"                                      |___/ 
+" Encoding (Unicode, UTF, Latin, etc)
+
+"encoding sets how vim shall represent characters internally. Utf-8 is 
+"necessary for most flavors of Unicode.
+":set encoding=utf-8
+
+"fileencoding sets the encoding for a particular file (local to buffer); 
+":setglobal sets the default value. Empty value defaults to same as 'encoding' 
+:set fileencodings=utf-8
+
+"Show fileencoding and BOM in the status line
+"if has("statusline")
+" set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+"endif
+
+
+"  _  __            ____                                
+" | |/ /___ _   _  |  _ \ ___ _ __ ___   __ _ _ __  ___ 
+" | ' // _ \ | | | | |_) / _ \ '_ ` _ \ / _` | '_ \/ __|
+" | . \  __/ |_| | |  _ <  __/ | | | | | (_| | |_) \__ \
+" |_|\_\___|\__, | |_| \_\___|_| |_| |_|\__,_| .__/|___/
+"           |___/                            |_|        
+" Key Remaps / Remapping
+
+"avoid the extra 'shift' keypress when typing the colon to go to cmdline mode
+"NOTE: the nno/vno~remaps don't work because it breaks plugins (e.g 
+"repeat-motion) so the :↔; swap is handled externally in autohotkey. This has the
+"side effect of remapping in insert mode as well, which is undesireable (until
+"muscle memory changes), so it's remapped with the inoremap commands
+"nnoremap ; :
+"nnoremap : ;
+"vnoremap ; :
+"vnoremap : ;
+inoremap : ;
+inoremap ; :
+
+" Make Y behave like other capitals.
+nnoremap Y y$
+
+"Map leader
+let mapleader = ","
+
+"map local leader
+let maplocalleader = "\\"
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+"MS-Windows type remappings (taken from mswin.vim)
+" backspace in Visual mode deletes selection
+vnoremap <BS> d
+
+" CTRL-X and SHIFT-Del are Cut
+vnoremap <C-X> "+x
+vnoremap <S-Del> "+x
+
+" CTRL-C and CTRL-Insert are Copy
+vnoremap <C-C> "+y
+vnoremap <C-Insert> "+y
+
+" CTRL-V and SHIFT-Insert are Paste
+map <C-V>		"+gP
+map <S-Insert>		"+gP
+
+cmap <C-V>		<C-R>+
+cmap <S-Insert>		<C-R>+
+
+" Pasting blockwise and linewise selections is not possible in Insert and
+" Visual mode without the +virtualedit feature.  They are pasted as if they
+" were characterwise instead.
+" Uses the paste.vim autoload script.
+" Use CTRL-G u to have CTRL-Z only undo the paste.
+
+exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
+exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
+
+imap <S-Insert>		<C-V>
+vmap <S-Insert>		<C-V>
+
+" Use CTRL-Q to do what CTRL-V used to do
+noremap <C-Q>		<C-V>
+
+" Use CTRL-S for saving, also in Insert mode
+noremap <C-S>		:update<CR>
+vnoremap <C-S>		<C-C>:update<CR>
+inoremap <C-S>		<C-O>:update<CR>
+
+" For CTRL-V to work autoselect must be off.
+" On Unix we have two selections, autoselect can be used.
+if !has("unix")
+  set guioptions-=a
+endif
+
+" CTRL-Z is Undo; not in cmdline though
+noremap <C-Z> u
+inoremap <C-Z> <C-O>u
+
+" CTRL-Y is Redo (although not repeat); not in cmdline though
+noremap <C-Y> <C-R>
+inoremap <C-Y> <C-O><C-R>
+
+" Alt-Space is System menu
+if has("gui")
+  noremap <M-Space> :simalt ~<CR>
+  inoremap <M-Space> <C-O>:simalt ~<CR>
+  cnoremap <M-Space> <C-C>:simalt ~<CR>
+endif
+
+" CTRL-A is Select all
+noremap <C-A> gggH<C-O>G
+inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+cnoremap <C-A> <C-C>gggH<C-O>G
+onoremap <C-A> <C-C>gggH<C-O>G
+snoremap <C-A> <C-C>gggH<C-O>G
+xnoremap <C-A> <C-C>ggVG
+
+" CTRL-Tab is Next window
+"noremap <C-Tab> <C-W>w
+"inoremap <C-Tab> <C-O><C-W>w
+"cnoremap <C-Tab> <C-C><C-W>w
+"onoremap <C-Tab> <C-C><C-W>w
+
+" CTRL-F4 is Close window
+noremap <C-F4> <C-W>c
+inoremap <C-F4> <C-O><C-W>c
+cnoremap <C-F4> <C-C><C-W>c
+onoremap <C-F4> <C-C><C-W>c
+
+" __     ___           
+" \ \   / (_)_ __ ___  
+"  \ \ / /| | '_ ` _ \ 
+"   \ V / | | | | | | |
+"    \_/  |_|_| |_| |_|
+"                      
+ "Vim
+
+"Disable the Vim intro screen
+:set shortmess+=I
+
+set showcmd		" display incomplete commands
+
+"Use visual bell instead of beeping
+set visualbell
+
+"command line completion. The command line is "expanded" vertically with a list
+set wildmenu
+
+"expand wildmenu
+set wildmode=longest:full,full
+
+set ttimeout
+set ttimeoutlen=100
+
+"  _____ _ _      _                      ____                  _  __ _      
+" |  ___(_) | ___| |_ _   _ _ __   ___  / ___| _ __   ___  ___(_)/ _(_) ___ 
+" | |_  | | |/ _ \ __| | | | '_ \ / _ \ \___ \| '_ \ / _ \/ __| | |_| |/ __|
+" |  _| | | |  __/ |_| |_| | |_) |  __/  ___) | |_) |  __/ (__| |  _| | (__ 
+" |_|   |_|_|\___|\__|\__, | .__/ \___| |____/| .__/ \___|\___|_|_| |_|\___|
+"                     |___/|_|                |_|                           
+"Filetype specific commands (consider placing in other files and sourcing)
+
+"Custom EX command: Adoc
+"Converts current file (presumed to be asciidoc format) into html, (using asciidoctor).  
+"asciidoctor program must be installed and environment paths in OS must be
+"already defined
+"   command! -> define command, ! -> redefine if already defined
+"	-nargs=0	No argument
+"	:silent -> no output messages (DOS window will still flash briefly (can
+"	download modified vimrun.exe to prevent this))
+"	! -> starts external shell
+"	asciidoctor -> program to use
+"	"%:p" -> name of current file (and absolute path) to convert, enclosed in
+"	quotes (") to accomodate spaces in file name
+"	<CR> - carriage return (might not be needed)
+command! -nargs=0 Adoc :silent !asciidoctor "%:p"<CR>
+

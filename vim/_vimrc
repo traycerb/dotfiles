@@ -1,4 +1,4 @@
-" → Vimrc file. v1.0 2014-09-20
+" → Vimrc file. v1.0.1 2014-09-22
 "
 " Big ASCII text headings created by FIGlet (Fonts: Ivrit and Small)
 " (http://patorjk.com/software/taag)
@@ -357,7 +357,10 @@ cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
 cnoremap <A-l> <Right>
-  
+
+" Move to last character of last line with 'GG'
+nnoremap GG G$
+
 "TODO: consider remap to make 'H' and 'L' (caps) in Normal mode perofrm word
 "level motion, e.g 'w' and 'b'.  An analogy to ctrl-left to move word-wise
 
@@ -1482,8 +1485,24 @@ set wildmenu
 "expand wildmenu
 set wildmode=longest:full,full
 
-set ttimeout
-set ttimeoutlen=100
+"determine the behavior when part of a mapped key sequence or keyboard code has been received:
+"'timeout'    'ttimeout'		action	~
+"	   off		off	        	do not time out.  Vim will wait until either the complete
+" mapping or key sequence has been received,
+"	   on		on or off	    time out on :mappings and key codes
+"	   off		on	            time out on key codes
+"
+"No need to set ttimeout if want timeout on mappings and key codes
+set timeout
+
+" The time in milliseconds that is waited for a key code or mapped key
+" sequence to complete.
+" Normally only 'timeoutlen' is used and 'ttimeoutlen' is -1.  When a
+" different timeout value for key codes is desired set 'ttimeoutlen' to
+" a non-negative number.  
+" The timeout only happens when the 'timeout' and 'ttimeout' options tell so.  
+set timeoutlen=200
+set ttimeoutlen=-1
 
 "  _____ _ _      _                      ____                  _  __ _      
 " |  ___(_) | ___| |_ _   _ _ __   ___  / ___| _ __   ___  ___(_)/ _(_) ___ 
@@ -1507,4 +1526,3 @@ set ttimeoutlen=100
 "	quotes (") to accomodate spaces in file name
 "	<CR> - carriage return (might not be needed)
 command! -nargs=0 Adoc :silent !asciidoctor "%:p"<CR>
-

@@ -358,7 +358,8 @@ cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
 cnoremap <A-l> <Right>
 
-" Move to last character of last line with 'GG'
+" Move to last character of last line with 'GG'.  Useful and symmetric with
+" 'gg'
 nnoremap GG G$
 
 "TODO: consider remap to make 'H' and 'L' (caps) in Normal mode perofrm word

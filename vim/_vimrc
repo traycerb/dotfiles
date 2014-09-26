@@ -365,6 +365,12 @@ nnoremap GG G$
 "TODO: consider remap to make 'H' and 'L' (caps) in Normal mode perofrm word
 "level motion, e.g 'w' and 'b'.  An analogy to ctrl-left to move word-wise
 
+"Normally '0' moves to 1st column, '^' to first character.
+"Remap to make easier to reach, '0' moves to first character, '00' to 1st
+"column
+nnoremap 0 ^
+nnoremap 00 0
+
 
 "  ____                      _     
 " / ___|  ___  __ _ _ __ ___| |__  
@@ -608,6 +614,17 @@ Bundle 'vim-scripts/UnconditionalPaste'
 "Takes the <number> out of <number>w or <number>f{char} by highlighting all possible choices and allowing you to press one key to jump directly to the target.
 "Bundle 'Lokaltog/vim-easymotion'
 
+"jump to a character; less distracting and lighter than easy motion 
+"Bundle 'dahu/vim-KWEasy'
+
+"Nexus required for vim-KWEasy
+"Bundle 'dahu/Nexus'
+
+"A Plugin to show a diff, whenever recovering a buffer
+"Bundle 'chrisbra/Recover.vim'
+
+
+
 "Auto-save
 Bundle '907th/vim-auto-save'
 
@@ -726,7 +743,12 @@ filetype plugin indent on
 "
 " vim-auto-save plugin options
 " enable AutoSave (907th/vim-auto-save plugin) on Vim startup
-let g:auto_save = 1  
+let g:auto_save = 1 
+
+"updatetime - If this many milliseconds nothing is typed the swap file will be written to disk
+"vim-auto-save changes it to 200, instead of 4000
+"Option below tell vim-auto-save to not change the 'updatetime'
+let g:auto_save_no_updatetime = 1  
 
 "    _     ___             __   __          
 "  _| |_  / __| __ ___ ____\ \ / /__ _ _ ___
@@ -1502,7 +1524,7 @@ set timeout
 " different timeout value for key codes is desired set 'ttimeoutlen' to
 " a non-negative number.  
 " The timeout only happens when the 'timeout' and 'ttimeout' options tell so.  
-set timeoutlen=200
+set timeoutlen=170
 set ttimeoutlen=-1
 
 "  _____ _ _      _                      ____                  _  __ _      

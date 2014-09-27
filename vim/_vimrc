@@ -513,6 +513,8 @@ set backup
 " Keeps oldest version of file. Name of the copy is the
 " name of the original file with the string in the 'patchmode' option (.clean)
 " Required for savevers.vim script (versioning file saving)
+" The location of this file is always where the original is located.  This
+" can't be changed.
 set patchmode=.clean
 
 " SET BACKUP DIRECTORIES.  
@@ -605,8 +607,16 @@ Bundle 'vim-scripts/UnconditionalPaste'
 "leonid-shevtsov/vimrun-silent 
 "
 
+"shows 'Nth match out of M' at every search 
+"Bundle 'vim-scripts/IndexedSearch'
+
+
 "completion function for Unicode glyphs
 "Bundle 'chrisbra/unicode.vim'
+
+"Calendar plugin
+"Bundle 'itchyny/calendar.vim'
+
 
 "adds various text objects to give you more targets to operate on. 
 "Bundle 'wellle/targets.vim'

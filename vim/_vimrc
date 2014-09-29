@@ -1,5 +1,6 @@
 " → Vimrc file. v1.0.1 2014-09-22
-"
+" Environment: Assumes Windows, GVim (very little checking for non-Windows and terminal)
+
 " Big ASCII text headings created by FIGlet (Fonts: Ivrit and Small)
 " (http://patorjk.com/software/taag)
  
@@ -42,6 +43,7 @@ set nocompatible
 "  \___/|___/\___|_|       \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
 "                                                                   
 
+"TODO: create these directories if not already present
 "Variables to define paths not in usual Vim locations
 "e.g XXXX = Backup, Undo, Session, Swap
 "<---------------->	UserXXXXPath
@@ -551,35 +553,64 @@ let &undodir = s:UserUndoPath . '//,' . s:UserPrecedingPath . '//,.'
 " |  __/| | |_| | (_| | | | | |/ / | |_) | |_| | | | | (_| | |  __/
 " |_|   |_|\__,_|\__, |_|_| |_/_/  |____/ \__,_|_| |_|\__,_|_|\___|
 "                |___/                                            
-" Plugin/Bundle/Vundle
+" Plugin / Bundle / Vundle / Neobundle
+"
 
+"Brief help for Neobundle
+"   :NeoBundleList - list configured bundles
+"   :NeoBundleInstall(!) - install (update) bundles
+"   :NeoBundleClean(!) - confirm (or auto-approve) removal of unused bundles
+"   :help neobundle
+
+"Needed for vundle.  Needed for NeoBundle?
 " Filetype detection.
 " Whenever you start editing a file, Vim will try to figure out what kind of file this is.
 " Needs to be turned OFF for vundle loading.  Can be turned on afterwards
 filetype off
 
-"NeoBundle, Vim plugin/bundle package manager, replacement for Vundle
-"Bundle '907th/vim-auto-save'
-
-
 
 " Adding vundle path to runtime path
-set runtimepath+=$HOME/vimfiles/bundle/vundle/
-call vundle#rc()
-"
-" Required for vundle on Windows, so that path names where bundles are to be  installed are recognized. 
+"set runtimepath+=$HOME/vimfiles/bundle/vundle/
+"call vundle#rc()
+" let Vundle manage Vundle (required!)
+"Bundle 'gmarik/vundle'
+
+
+" First time self-install script for NeoBundle (vim plugin bundler (replacement for Vundle))
+" Credit: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+" Credit2: (NeoBundle version) https://github.com/tony/vim-config/blob/master/bundles.vim
+
+let beforeNeoBundleInstall = 1
+let neobundle_readme = expand('~/.vim/bundle/neobundle.vim/README.md')
+
+if !filereadable(neobundle_readme)
+    echo "Installing neobundle.vim."
+    echo ""
+    let $NEOBUNDLE_REL_PATH = '\.vim\bundle\'
+    let $NEOBUNDLE_INSTALL_DIR = 'neobundle.vim'
+    let $NEOBUNDLE_FULL_PATH = expand('$HOME') . $NEOBUNDLE_REL_PATH . $NEOBUNDLE_INSTALL_DIR
+    silent !mkdir \%NEOBUNDLE_FULL_PATH\% 
+    silent !git clone https://github.com/Shougo/neobundle.vim \%NEOBUNDLE_FULL_PATH\%
+    let beforeNeoBundleInstall = 0
+endif
+
+"NeoBundle Setup.  Add to path
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Required for vundle on Windows, so that path names where bundles are to be installed are recognized. 
 " Has to do with single quotes (') vs double quotes (") around path names.
 set noshellslash
-"
-" let Vundle manage Vundle (required!)
-Bundle 'gmarik/vundle'
 
 " Your bundles go here:
 " Format for Bundle listings
-" ORIGINAL REPOS ON GITHUB: Bundle 'mivok/vimtodo' or to pass with path " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" VIM-SCRIPTS REPOS: Bundle 'L9'
-" NON-GITHUB REPOS: Bundle 'git://git.wincent.com/command-t.git'
-" GIT REPOS ON YOUR LOCAL MACHINE (I.E. WHEN WORKING ON YOUR OWN PLUGIN): Bundle 'file:///Users/gmarik/path/to/plugin'
+" ORIGINAL REPOS ON GITHUB: NeoBundle 'mivok/vimtodo' or to pass with path NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" VIM-SCRIPTS REPOS: NeoBundle 'L9'
+" NON-GITHUB REPOS: NeoBundle 'git://git.wincent.com/command-t.git'
+" GIT REPOS ON YOUR LOCAL MACHINE (I.E. WHEN WORKING ON YOUR OWN PLUGIN): NeoBundle 'file:///Users/gmarik/path/to/plugin'
 
 "Bundles to consider adding
 "space bar for autocompletion (conflicts w/ remapping of <space> for page dn/up)
@@ -600,8 +631,6 @@ Bundle 'gmarik/vundle'
 "Simplified clipboard functionality for Vim.
 "Bundle 'svermeulen/vim-easyclip'
 
-"Force character-/line-/block-wise paste, regardless of how it was yanked.
-Bundle 'vim-scripts/UnconditionalPaste'
 "
 "Not a bundle per se, but silent vimrun.exe prevents external shell windows from flashing if silent attribute set
 "leonid-shevtsov/vimrun-silent 
@@ -616,7 +645,6 @@ Bundle 'vim-scripts/UnconditionalPaste'
 
 "Calendar plugin
 "Bundle 'itchyny/calendar.vim'
-
 
 "adds various text objects to give you more targets to operate on. 
 "Bundle 'wellle/targets.vim'
@@ -633,6 +661,13 @@ Bundle 'vim-scripts/UnconditionalPaste'
 "A Plugin to show a diff, whenever recovering a buffer
 "Bundle 'chrisbra/Recover.vim'
 
+"repeat motions (";" to go repeat motion fwd, "," go back)
+"TODO: PROBLEMS: interferes with backwards search ('?searchPattern') and remapping
+"of visual line motions
+"Bundle 'vim-scripts/repeat-motion'
+"
+"Show CSS colors in actual color (e.g. 'yellow', '#a8225f')
+"Bundle 'skammer/vim-css-color'
 
 
 "Auto-save
@@ -645,15 +680,7 @@ Bundle 'ervandew/supertab'
 Bundle 'yegappan/mru'
 
 "Automatically saves and compares multiple, sequentially numbered old revisions of files
-"Bundle 'vim-scripts/savevers.vim'
-
-"Automatically saves and compares multiple, sequentially numbered old revisions of files
-Bundle 'savevers.vim'
-
-"repeat motions (";" to go repeat motion fwd, "," go back)
-"TODO: PROBLEMS: interferes with backwards search ('?searchPattern') and remapping
-"of visual line motions
-"Bundle 'vim-scripts/repeat-motion'
+Bundle 'vim-scripts/savevers.vim'
 
 "vim-misc scripts needed for session.vim
 Bundle 'xolox/vim-misc'
@@ -709,9 +736,6 @@ Bundle 'jceb/vim-orgmode'
 "Vim outliner
 Bundle 'vimoutliner/vimoutliner'
 
-"Vim org-mode clone (written in vimScript)
-" Bundle 'hsitz/VimOrganizer'
-
 "Allows testing of vim regular expressions
 Bundle 'Raimondi/VimRegEx.vim'
 
@@ -721,21 +745,30 @@ Bundle 'tpope/vim-surround'
 "remaps  .  in a way that plugins can tap into it.
 Bundle 'tpope/vim-repeat'
 
-"Show CSS colors in actual color (e.g. 'yellow', '#a8225f')
-"Bundle 'skammer/vim-css-color'
+"Force character-/line-/block-wise paste, regardless of how it was yanked.
+Bundle 'vim-scripts/UnconditionalPaste'
 
+call neobundle#end()
 
-"mpage.vba - span single file across multiple splits, syncing scrolling
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+
+"NON-BUNDLE PLUGINS
+ 
+ "mpage.vba - span single file across multiple splits, syncing scrolling
 "installed via Vimball, path added manually.
-"TODO: BundleClean will remove this in its current location; move to diff loc.
-"to remove:
+"TO REMOVE :
 "   :RmVimball mpage
-"to reinstall, open mpage.vba in a buffer, and type:
+"TO REINSTALL, OPEN MPAGE.VBA IN A BUFFER, AND TYPE:
 "   :UseVimball <path to install>
 "  (path is usually $HOME/.vim/bundle/myPluginName
 set runtimepath+=$HOME/.vim/nonBundlePlugins/mpage
 
-" Turn back on filetyping after Vundle is done
+" Turn back on filetyping after NeoBundle is done
 filetype plugin indent on
 
 "          ____  _             _          ___        _   _                 
@@ -1536,6 +1569,7 @@ set timeout
 " The timeout only happens when the 'timeout' and 'ttimeout' options tell so.  
 set timeoutlen=170
 set ttimeoutlen=-1
+
 
 "  _____ _ _      _                      ____                  _  __ _      
 " |  ___(_) | ___| |_ _   _ _ __   ___  / ___| _ __   ___  ___(_)/ _(_) ___ 

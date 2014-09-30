@@ -24,6 +24,11 @@ set nocompatible
 "Todo
 "-something interfering with reverse search (N)
 "-surround.vim doesn't work with vim-repeat as it shoudl
+"-V remapping/function to go to end of line of last line when going down
+"-Disable messages in Session manager plugin (clears message windows too
+"quickly)
+" remap 'u' for creating lower case, interferes with undo
+" Adjust unconditional paste remaps so no linewise pastes
 
 "  ____       _                 
 " |  _ \  ___| |__  _   _  __ _ 
@@ -631,12 +636,11 @@ set noshellslash
 "shows 'Nth match out of M' at every search 
 "NeoBundle 'vim-scripts/IndexedSearch'
 
+" Vim plugin that enables surfing through buffers based on viewing history per window
+"NeoBundle 'ton/vim-bufsurf'
 
 "completion function for Unicode glyphs
 "NeoBundle 'chrisbra/unicode.vim'
-
-"Calendar plugin
-"NeoBundle 'itchyny/calendar.vim'
 
 "adds various text objects to give you more targets to operate on. 
 "NeoBundle 'wellle/targets.vim'
@@ -740,6 +744,30 @@ NeoBundle 'tpope/vim-repeat'
 "Force character-/line-/block-wise paste, regardless of how it was yanked.
 NeoBundle 'vim-scripts/UnconditionalPaste'
 
+"Calendar plugin
+NeoBundle 'itchyny/calendar.vim'
+
+"general support for text linking.
+"The hyperlinks feature of vim-orgmode depends on this plugin.
+NeoBundle 'vim-scripts/utl.vim'
+
+"Display tags for the currently edited file. 
+"Vim-orgmode supports displaying the heading structure and hyperlinks used by taglist plugin.
+"Github version out-of-date (4.5 not 4.6), so use vim.org/scripts as source
+NeoBundle 'taglist.vim'
+
+"Displays the tags of the current file in a sidebar
+"Vim-orgmode supports displaying the heading structure and hyperlinks used by tagbar plugin.
+NeoBundle 'majutsushi/tagbar'
+
+"use CTRL-A/CTRL-X to increment dates, times, and more
+"Dates and times in the orgmode format can be in-/decreased if this plugin is installed.
+NeoBundle 'tpope/vim-speeddating'
+
+"Define a different filetype syntax on regions of a buffer. 
+"Recommended for vim-orgmode
+NeoBundle 'vim-scripts/SyntaxRange'
+
 call neobundle#end()
 
 " Required:
@@ -750,7 +778,7 @@ filetype plugin indent on
 NeoBundleCheck
 
 "NON-BUNDLE PLUGINS
- 
+
  "mpage.vba - span single file across multiple splits, syncing scrolling
 "installed via Vimball, path added manually.
 "TO REMOVE :

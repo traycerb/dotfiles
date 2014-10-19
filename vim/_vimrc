@@ -149,7 +149,12 @@ let g:zenburn_alternate_Visual = 0
 " |_|  \___/|_| |_|\__|___/
 "                          
 " Fonts
-:set guifont=DejaVu_Sans_Mono:h11:cANSI
+"set guifont=DejaVu_Sans_Mono:h11:cANSI
+set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cANSI
+"set guifont=Ubuntu_Mono_derivative_Powerline:h11:cANSI
+"set guifont=Courier_New:h11:cANSI
+"set guifont=Courier\ New:h11:cANSI
+"set guifont=Ubuntu\ Mono\ derivative\ Powerline:h11:cANSI
 
 "  _____         _   
 " |_   _|____  _| |_ 
@@ -388,7 +393,7 @@ set hlsearch
 set gdefault
 
 " This unsets the 'last search pattern' register by hitting return
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 "Case insensitive searches (needed to be set for smartcase option to work)
 set ignorecase
@@ -399,8 +404,8 @@ set ignorecase
 set smartcase
 
 "search will center on the line it's found in. 
-noremap N Nzz 
-noremap n nzz 
+noremap N Nzz
+noremap n nzz
 
 "  ____              _                  __  _____                          _   _   _             
 " / ___| _   _ _ __ | |_ __ ___  __    / / |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _ 
@@ -495,6 +500,20 @@ set ch=2		" Make command line two lines high
 "not been changed inside of Vim, automatically read it again.  When the file has
 "been deleted this is not done.
 set autoread
+
+"Set vim's native encryption method. Default is zip (weak)
+"Vim encryption with Blowfish is strong, but vim itself
+"will leak information in the viminfo, and possibly the swap file.
+"Both should be disabled if anything more than light encryption is needed,
+"or external programs can be used.
+"To encrypt file type:
+" :X 
+" ...the file will NOT be encrypted until the next write!
+"To unencrypt, open file, and vim will prompt for password
+"If password is incorrect, encrypted gibberish text will be seen.  Do NOT
+"edit and save a file displaying the encrypted gibberish, otherwise
+"original file/data will be corrupted.
+set cryptmethod=blowfish
 
 "  ____             _                     __  ____                          __  _   _           _       
 " | __ )  __ _  ___| | ___   _ _ __      / / / ___|_      ____ _ _ __      / / | | | |_ __   __| | ___  
@@ -709,7 +728,8 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'vim-scripts/scratch.vim'
 
 "Syntax highlighting for asciidoc files
-NeoBundle 'dagwieers/asciidoc-vim'
+"NeoBundle 'dagwieers/asciidoc-vim'
+NeoBundle 'traycerb/asciidoc-vim'
 
 "Todo.txt scripts 
 NeoBundle 'mivok/vimtodo'
@@ -754,6 +774,7 @@ NeoBundle 'vim-scripts/utl.vim'
 "Display tags for the currently edited file. 
 "Vim-orgmode supports displaying the heading structure and hyperlinks used by taglist plugin.
 "Github version out-of-date (4.5 not 4.6), so use vim.org/scripts as source
+"Requires exuberant.ctags to be installed on computer with path to executable 
 NeoBundle 'taglist.vim'
 
 "Displays the tags of the current file in a sidebar
@@ -799,6 +820,70 @@ filetype plugin indent on
 "                        |___/                |_|                          
 " Plugin Options
 " Options which would be invalid if the plugin wasn't installed
+
+" airline plugin options
+"
+"Use patched powerline fonts for arrow glyphs, etc
+"Powerline fonts from must be installed in the system ( https://github.com/Lokaltog/powerline-fonts )
+let g:airline_powerline_fonts = 1
+
+"enable/disable detection of whitespace errors.
+let g:airline#extensions#whitespace#enabled = 0
+
+call airline#parts#define_function('DateAndTime', 'AirlineStatusDateAndTime')
+
+function! AirlineInit()
+    let g:airline_section_y = airline#section#create(['DateAndTime', ' ', 'ffenc'])
+    let g:airline_section_z = airline#section#create(['%3p%%', ' [', '%{g:airline_symbols.linenr}', '%4l', '] [', '%#__accent_bold#C%#__restore__#', '%4c', '] (Total', '%5L', ')']) 
+endfunction
+
+autocmd VimEnter * call AirlineInit()
+
+"Date and Time in Vim using airline. Only updates with activity.
+"Selected strftime() parameter strings:
+"(For full Windows options, see http://msdn.microsoft.com/en-us/library/fe06s4ak.aspx)
+"
+"DATE
+"Variable  | Meaning                 | Example
+"---------------------------------------------
+"%a        | Day of week (name)      | Thu
+"%d        | Date in month (numeric) | 27
+"%b        | Month (name)            | Sep
+"%m        | Month (numeric)         | 09
+"%y        | Year (2 digit)          | 07
+"%Y        | Year (4 digit)          | 2007
+"%x        | Full date               | 09/27/2007
+"
+"TIME
+"Variable  | Meaning                 | Example
+"---------------------------------------------
+"%H        | Hour (24)               | 07
+"%M        | Minute                  | 57
+"%S        | Seconds                 | 33
+"%X        | Preferred Time          | 7:57:33 AM (depends on locale)
+"%Z        | Time Zone               | EDT
+"
+"COMPOSITE
+"Variable  | Meaning                 | Example
+"---------------------------------------------
+"%c        | Preferred Date and Time | Thu 27 Sep 2007 07:37:42 AM EDT (depends on locale)
+"
+"Format String              Example output
+"-------------              --------------
+"%c                         09/27/2014 7:57:33 PM (depends on locale)
+"%a %d %b %Y                Thu 27 Sep 2007
+"%b %d, %Y                  Sep 27, 2007
+"%d/%m/%y %H:%M:%S          27/09/07 07:36:32
+"%H:%M:%S                   07:36:44
+"%T                         07:38:09
+"%m/%d/%y                   09/27/07
+"%y%m%d                     070927
+"%x %X (%Z)                 09/27/2007 08:00:59 AM (EDT)
+"
+function! AirlineStatusDateAndTime()
+    return strftime("%H:%M - %A %b %d, %Y")
+endfunction
+
 "    _       _       _       ___               
 "  _| |_    /_\ _  _| |_ ___/ __| __ ___ _____ 
 " |_   _|  / _ \ || |  _/ _ \__ \/ _` \ V / -_)
@@ -946,6 +1031,21 @@ let g:colorizer_debug=1
 
 "Remap so unconditional paste behavior is default behavior (not option per se)
 "
+
+
+
+"   ___               __  __         _     
+"  / _ \ _ _ __ _ ___|  \/  |___  __| |___ 
+" | (_) | '_/ _` |___| |\/| / _ \/ _` / -_)
+"  \___/|_| \__, |   |_|  |_\___/\__,_\___|
+"           |___/                          
+" vim-orgmode plugin options
+
+"Indicate the sequential states in the process of working on an item.
+"The vertical bar separates the TODO keywords (states that 'need action')
+"from the DONE states (which need 'no further action'). 
+let g:org_todo_keywords = [['TODO(t)', 'ACTIVE(a)', '|', 'ZZZ(z)', 'CANCEL(c)', 'DONE(d)'],
+                          \ ['REWARD(r)', '|', 'TAKEN(t)']]
 
 
 "     _    _     _                    _       _   _                 
@@ -1459,6 +1559,10 @@ inoremap ; :
 " Make Y behave like other capitals.
 nnoremap Y y$
 
+"try line-wise visual mode (V) to highlight to end (analogous to other capital
+"behaviors).  Not sure if compatible with plugins, etc.
+nnoremap V v$
+
 "Map leader
 let mapleader = ","
 
@@ -1587,7 +1691,7 @@ set timeout
 " different timeout value for key codes is desired set 'ttimeoutlen' to
 " a non-negative number.  
 " The timeout only happens when the 'timeout' and 'ttimeout' options tell so.  
-set timeoutlen=170
+set timeoutlen=250
 set ttimeoutlen=-1
 
 
@@ -1613,3 +1717,4 @@ set ttimeoutlen=-1
 "	quotes (") to accomodate spaces in file name
 "	<CR> - carriage return (might not be needed)
 command! -nargs=0 Adoc :silent !asciidoctor "%:p"<CR>
+"command! -nargs=0 Adoc :!asciidoctor "%:p"<CR>
